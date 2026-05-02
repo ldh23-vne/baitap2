@@ -49,13 +49,14 @@ Phần 1: Khởi tạo database và bảng
 Tạo cơ sở dữ liệu  
 
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/8a4953a9-1586-4fe4-870c-2cd9a1c42996" />
-                        Tạo cơ sở dữ liệu QuanLyNhaHang_K235480106033
+Tạo cơ sở dữ liệu QuanLyNhaHang_K235480106033
 
-- Bảng [KhachHang]
 
-👉Sử dụng MaKhachHang làm Khóa chính (PK), tự động tăng (IDENTITY(1,1)).
-👉Họ tên dùng NVARCHAR để hỗ trợ tiếng Việt có dấu.
-👉Điểm đánh giá (DiemDanhGia) có ràng buộc CHECK từ 1 đến 5 sao.
+Bảng [KhachHang]
+
+Sử dụng MaKhachHang làm Khóa chính (PK), tự động tăng (IDENTITY(1,1)).
+Họ tên dùng NVARCHAR để hỗ trợ tiếng Việt có dấu.
+Điểm đánh giá (DiemDanhGia) có ràng buộc CHECK từ 1 đến 5 sao.
 
 CREATE TABLE [KhachHang] (
     [MaKhachHang] INT IDENTITY(1,1) NOT NULL,
@@ -72,11 +73,11 @@ CREATE TABLE [KhachHang] (
                                 Tạo bảng KhachHang
 
 -Bảng [Ban]
-👉MaBan: khóa chính (PK), tự tăng IDENTITY(1,1)
-👉TenBan: tên bàn (VD: Bàn 1, Bàn VIP A)
-👉LoaiBan: phân loại (2 người, 4 người, VIP…)
-👉SucChua: số người tối đa
-👉TrangThai: trạng thái bàn
+MaBan: khóa chính (PK), tự tăng IDENTITY(1,1)
+TenBan: tên bàn (VD: Bàn 1, Bàn VIP A)
+LoaiBan: phân loại (2 người, 4 người, VIP…)
+SucChua: số người tối đa
+TrangThai: trạng thái bàn
 → mặc định là Trống 
 
 [CREATE TABLE [Ban] (
@@ -96,10 +97,10 @@ Tạo bảng Ban
 
 
 -Bảng [MonAn]
-👉Sử dụng MaMon làm khóa chính (PK), tự tăng IDENTITY(1,1)
-👉Tên món dùng NVARCHAR để hỗ trợ tiếng Việt
-👉Giá món dùng MONEY, có ràng buộc > 0
-👉Trạng thái món: Còn / Hết
+Sử dụng MaMon làm khóa chính (PK), tự tăng IDENTITY(1,1)
+Tên món dùng NVARCHAR để hỗ trợ tiếng Việt
+Giá món dùng MONEY, có ràng buộc > 0
+Trạng thái món: Còn / Hết
 
 [CREATE TABLE [MonAn] (
     [MaMon] INT IDENTITY(1,1) NOT NULL,
@@ -137,9 +138,9 @@ Tạo bảng Dat Ban
 
 -Bảng [HoaDon] 
 
-👉Mỗi hóa đơn = 1 lần khách gọi món
+Mỗi hóa đơn = 1 lần khách gọi món
 
-👉Liên kết với bàn và khách hàng
+Liên kết với bàn và khách hàng
 
 [CREATE TABLE [HoaDon] (
     [MaHoaDon] INT IDENTITY(1,1) NOT NULL,
@@ -164,7 +165,7 @@ Tạo bảng Hóa Đơn
 
 -Bảng [ChiTietHoaDon] (Chi tiết món ăn)
 
-👉 Đây là bảng quan trọng nhất để lưu món
+-- Đây là bảng quan trọng nhất để lưu món
 
 CREATE TABLE [ChiTietHoaDon] (
     [MaHoaDon] INT NOT NULL,
@@ -338,8 +339,10 @@ NEWID(): Tạo ra một mã định danh duy nhất (GUID) dùng khi cần sắp
 SELECT TOP 1 MaBan, LoaiBan, SucChua
 FROM [Ban]
 ORDER BY NEWID();
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/c0a0e06a-070a-44de-bfdb-fa5de3f9906d" />
 Lấy ngẫu nhiên 1 bàn để gợi ý cho khách
+
 
 CHOOSE(): Trả về một mục từ một danh sách dựa trên chỉ mục (giống như mảng). Giúp tránh phải viết CASE WHEN dài dòng.
 --Phân loại bàn theo số ngẫu nhiên
@@ -348,8 +351,10 @@ SELECT CHOOSE(2,
     N'Bàn 4 người',
     N'Bàn 6 người',
     N'Bàn VIP') AS LoaiBan;
+    
     <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/10933f1c-a9ae-4719-9f95-c265005fe29e" />
 Phân loại bàn theo số ngẫu nhiên
+
 
 DATEDIFF(): Tính khoảng cách giữa 2 mốc thời gian (theo ngày, tháng, năm, giờ...). Vô cùng quan trọng trong bài toán quản lý nhà hàng.
 --Tính thời gian từ lúc đặt đến lúc đến (DatBan)
@@ -357,8 +362,10 @@ SELECT
     MaDatBan,
     DATEDIFF(MINUTE, ThoiGianDat, ThoiGianDen) AS ThoiGianCho
 FROM DatBan;
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/2176fb4f-cb4e-4d47-af62-dd4088f5c138" />
 Tính thời gian từ lúc đặt đến lúc đến (DatBan)
+
 
 Hàm do người dùng tự viết (User-Defined Functions - UDFs)
 a) Mục đích
@@ -366,6 +373,7 @@ a) Mục đích
 UDF được sử dụng để đóng gói các logic nghiệp vụ phức tạp thành một khối xử lý có thể tái sử dụng nhiều lần.
 Giúp các câu lệnh như SELECT, UPDATE trở nên ngắn gọn, dễ đọc và dễ bảo trì.
 Tăng tính tái sử dụng và nhất quán trong hệ thống cơ sở dữ liệu.
+
 b) Phân loại và khi sử dụng
 
 Scalar Function (Hàm vô hướng)
@@ -386,7 +394,7 @@ Tuy nhiên, trong thực tế:
 Mỗi hệ thống đều có quy tắc nghiệp vụ riêng (Business Logic)
 Các quy tắc này thường phức tạp và đặc thù, không thể dùng trực tiếp hàm có sẵn
 Việc viết lặp lại logic nhiều lần trong các câu lệnh SQL sẽ gây khó bảo trì và dễ sai sót
-👉 Vì vậy, cần sử dụng UDF để:
+Vì vậy, cần sử dụng UDF để:
 
 Đóng gói logic nghiệp vụ thành một hàm riêng biệt
 Tái sử dụng nhiều lần trong các truy vấn khác nhau
@@ -442,13 +450,17 @@ BEGIN
     RETURN @TongTien;
 END;
 GO
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/00edcbdb-4aef-44f1-ad6b-469d8ffc62e5" />
 Tạo hàm TinhTongTienHoaDon
 
+
 Cách sử dụng
 SELECT dbo.fn_TinhTongTienHoaDon(1) AS TongTien;
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/446ba657-c273-4fb7-869c-4b3ca910cfc0" />
 Hiển thị tổng tiền hóa đơn
+
 
 Viết 1 Inline Table-Valued Function (ITVF)
 Viết hàm lấy ra danh sách lịch sử đặt bàn của một khách hàng khi truyền vào Mã Khách Hàng.
@@ -501,13 +513,18 @@ RETURN
     WHERE db.MaKhachHang = @MaKhachHang
 );
 GO
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/839d3fd7-ce3b-499d-9fcb-dcb596c21a8c" />
 Tạo Function LichSuDatBan
+
+
 --Xem lịch sử đặt bàn của khách hàng có mã số 1
 SELECT * 
 FROM dbo.fn_LichSuDatBan(1);
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/2404b8ca-ef87-404c-a6b5-3653040dbffd" />
 Xem lịch sử đặt bàn của khách hàng có mã số 1
+
 
 Viết 1 Multi-statement Table-Valued Function (MSTVF)
 Ban quản lý cần một hàm thống kê tình trạng hoạt động của các bàn theo Tháng và Năm.
@@ -591,13 +608,18 @@ BEGIN
     RETURN;
 END;
 GO
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/b3851073-ff17-4af8-a960-31d99112ff36" />
 Tạo hàm ThongKeBan
+
+
 --Lấy báo cáo các bàn được đặt tháng 1/2023
 SELECT *
 FROM dbo.fn_ThongKeBan(1, 2023);
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/aca17892-9b9e-46cd-9211-1dbc4f9b9ee1" />
 Lấy báo cáo các bàn được đặt tháng 1/2023
+
 
 Phần 3: Xây dựng Store Procedure
 Stored Procedure hệ thống (System Stored Procedures)
@@ -641,14 +663,19 @@ sp_helptext (Trình soi code ẩn):
 
 Công dụng: Khi bạn có quá nhiều Trigger, View, hoặc các Function/SP cũ do người khác viết và bạn không biết bên trong họ code gì, SP này sẽ in ra toàn bộ mã nguồn (source code) của đối tượng đó.
 EXEC sp_helptext 'fn_TinhTongTienHoaDon'; -- Trả về source code của function đã viết ở bài trước
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/ec32e02c-d735-4116-a19b-0133a58ed391" />
 Trả về source code của function đã viết ở bài trước
+
+
 sp_spaceused (Kế toán dung lượng):
 
 Công dụng: Báo cáo nhanh xem một bảng dữ liệu hoặc toàn bộ Database đang chiếm bao nhiêu MB trên ổ cứng, và có chính xác bao nhiêu dòng dữ liệu (nhanh hơn nhiều so với việc dùng COUNT(*) trên bảng hàng triệu dòng).
 EXEC sp_spaceused 'HoaDon';-- Kiểm tra xem bảng Hóa Đơn đang nặng bao nhiêu KB
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/5ff8a1d8-6ddc-4600-b032-aae7f88a75e9" />
 Kiểm tra xem bảng Hóa Đơn đang nặng bao nhiêu KB
+
 
 Viết 01 Store Procedure đơn giản để thực hiện lệnh INSERT hoặc UPDATE dữ liệu, có kiểm tra điều kiện logic
 
@@ -736,10 +763,14 @@ GO
 
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/cc641604-c98e-4826-a04a-006649f16004" />
 Tạo Procedure sp_DatBanThanToc(Đặt bàn Thần tốc)
+
+
 --Khách hàng mã 1 muốn đặt gấp 1 bàn VIP
 EXEC sp_DatBanThanToc 1, N'Bàn VIP';
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/c3492943-d1ea-4910-9dbb-0989a9450ad8" />
 Đặt bàn gấp cho khách hàng mã 1 , bàn VIP
+
 
 Viết 01 Stored Procedure có tham số OUTPUT
 SP có tham số OUTPUT
@@ -811,8 +842,11 @@ BEGIN
     END
 END;
 GO
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/a82d5425-46a5-425d-8edd-352bacb16cad" />
 Tạo Procedure sp_QuayThuongGiamGia(Vòng quay may mắn: Tính tỷ lệ giảm giá cho khách)
+
+
 -- Để chạy SP có OUTPUT, ta phải khai báo một biến để hứng kết quả
 DECLARE @GiamGia INT;
 
@@ -823,8 +857,10 @@ EXEC sp_QuayThuongGiamGia
 
 --Hiển thị kết quả
 SELECT @GiamGia AS PhanTramGiam;
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/acb0681b-de58-4de9-ba3c-ae5f1c5da848" />
 Vòng quay may mắn: giảm giá cho khách
+
 
 Viết 01 Store Procedure trả về một tập kết quả (Result set) từ lệnh SELECT sau khi đã join nhiều bảng.
 SP trả về Result Set (Lệnh SELECT JOIN nhiều bảng)
@@ -906,12 +942,16 @@ BEGIN
     ORDER BY SoPhut ASC;
 END;
 GO
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/6c183a6e-5de1-49e9-8688-feac6f86bfb2" />
 Tạo Procedure sp_BaoCaoKhachHangAnNhanh
 
+
 EXEC sp_BaoCaoKhachHangAnNhanh;
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/327498e1-9c65-438d-91dc-c926a2e9fc57" />
 Liệt kê danh sách khách hàng ăn nhanh
+
 
 Phần 4: Trigger và Xử lý logic nghiệp vụ
 YÊU CẦU 1: Viết 01 Trigger tự động cập nhật bảng B khi bảng A thay đổi
@@ -969,7 +1009,6 @@ BEGIN
           AND d.DiemDanhGia <> 1
     )
     BEGIN
-        -- ❗ SỬA DatPhong → DatBan
         DELETE db
         FROM DatBan db
         JOIN inserted i ON db.MaKhachHang = i.MaKhachHang
@@ -985,12 +1024,16 @@ BEGIN
     END
 END;
 GO
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/c0ec0467-7904-43f7-b2c2-3e4397a27c01" />
 Tạo Trigger trg_KhachHang_Blacklist
 
+
 VD: Giả sử Khách hàng số 1 đang có điểm đánh giá bình thường. Trong một lần đến nhà hàng, khách có hành vi quậy phá -> Nhân viên tiến hành cập nhật điểm đánh giá xuống 1 sao.
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/e5b39d29-265a-407b-8b8d-4c80d0583774" />
 Khách hàng số 1 thấy cột TrangThai tự động đổi thành 'Blacklist (Cấm cửa)'
+
 
 YÊU CẦU 2: Tình huống Trigger "Vòng Lặp" (A gọi B, B gọi A)
 Ý tưởng (Scenario): Cuộc chiến Khuyến mãi – Điểm tích lũy & Hoàn tiền
@@ -1053,6 +1096,7 @@ GO
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/6ef9d0cf-c49a-40f8-9b9d-6fef19219d67" />
 Tạo Trigger 1: (HoaDon → KhachHang)
 
+
 Trigger 2: (KhachHang → HoaDon)
 CREATE TRIGGER trg_KhachHang_HoanTien
 ON KhachHang
@@ -1076,23 +1120,30 @@ BEGIN
     END
 END;
 GO
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/9a3508cb-fab5-421f-912f-da9c8192a219" />
 Tạo Trigger 2: (KhachHang → HoaDon)
+
 
 TEST HOẠT ĐỘNG
 -- Tạo hóa đơn mới
 INSERT INTO HoaDon (MaKhachHang, MaBan, ThoiGianVao)
 VALUES (1, 'B01', GETDATE());
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/a3758009-3362-41c8-bbcd-7e874d088bc9" />
 Tạo hóa đơn mới
+
 
 KẾT QUẢ
 SELECT MaKhachHang, DiemTichLuy 
 FROM KhachHang WHERE MaKhachHang = 1;
+
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/e0c347ed-a998-4c37-9c82-b4ff656eb6e7" />
+
 
 SELECT * FROM HoaDon WHERE MaKhachHang = 1;
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/bbe0e9cc-30e0-48ea-ab3c-5ac07abd8578" />
+
 
 Phân tích kết quả:
 --Hai Trigger được thiết kế để phối hợp tự động giữa bảng KhachHang và HoaDon. Khi phát sinh giao dịch mới, hệ thống tự động cộng điểm cho khách hàng. Ngược lại, khi điểm tích lũy thay đổi, hệ thống cập nhật hoàn tiền cho hóa đơn gần nhất. Đồng thời, cơ chế kiểm soát vòng lặp được áp dụng để đảm bảo hệ thống hoạt động ổn định.
@@ -1180,7 +1231,111 @@ DEALLOCATE cur_KH;
 Khách có điểm đánh giá <4 lần lượt nhận TienVoucher
 
 
+Phân tích logic không dùng CURSOR (Set-based) "Phân phát Quỹ đền bù rủi ro"
+Luồng xử lý tổng quát:
+ Bước 1. Hệ thống xác định danh sách khách hàng:
+Chỉ lấy những khách có DiemDanhGia < 4
+Sắp xếp theo mức độ không hài lòng (tăng dần)
+ Bước 2. Thực hiện tính toán lũy kế:
+Sử dụng hàm cửa sổ SUM() OVER (ORDER BY ...)
+Với mỗi khách, tính tổng tiền lũy kế nếu phát voucher từ người đầu tiên đến người đó
+ Bước 3. Xác định điều kiện nhận thưởng:
+Những khách có tổng tiền lũy kế ≤ 3.000.000 sẽ được nhận voucher
+ Bước 4. Thực hiện cập nhật:
+Cập nhật đồng loạt TienVoucher + 500.000 cho các khách thỏa điều kiện
+ Bước 5. Kết thúc:
+Quỹ được phân bổ đúng giới hạn
+Không cần duyệt từng bản ghi riêng lẻ
 
+USE QuanLyNhaHang_K235480106033;
+GO
+
+-- Sử dụng CTE để tính toán lũy kế trước khi cập nhật
+WITH DanhSachChoVoucher AS (
+    SELECT 
+        MaKhachHang,
+        TienVoucher,
+        -- Bước 2: Tính tổng tiền lũy kế (mỗi người 500k) 
+        -- Sắp xếp theo DiemDanhGia tăng dần (người đánh giá thấp nhất được ưu tiên trước)
+        SUM(500000) OVER (ORDER BY DiemDanhGia ASC, MaKhachHang ASC) AS TongTienLuyKe
+    FROM KhachHang
+    WHERE DiemDanhGia < 4
+)
+-- Bước 4: Thực hiện cập nhật đồng loạt cho những người thỏa điều kiện ngân sách
+UPDATE KhachHang
+SET TienVoucher = ISNULL(KhachHang.TienVoucher, 0) + 500000
+FROM KhachHang
+INNER JOIN DanhSachChoVoucher ON KhachHang.MaKhachHang = DanhSachChoVoucher.MaKhachHang
+WHERE DanhSachChoVoucher.TongTienLuyKe <= 3000000; -- Bước 3: Chỉ lấy khách trong giới hạn quỹ 3 triệu
+
+-- Kiểm tra kết quả sau khi cập nhật
+SELECT MaKhachHang, DiemDanhGia, TienVoucher
+FROM KhachHang
+WHERE DiemDanhGia < 4
+ORDER BY DiemDanhGia ASC;
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/40748cca-8118-420a-abb0-0253a6d8dd2a" />
+Không dùng cursor vẫn giải quyết được bài toán phát TienVoucher
+
+
+So sánh và nhận xét hiệu năng:
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/a58c5afd-84ee-4805-80d8-dc76370c65c7" />
+Hiệu năng khi dùng CURSOR
+
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/d9ce9e00-a4aa-4889-ac84-913d3bdbf6ac" />
+Hiệu năng khi dùng Set-based (không dùng CURSOR)
+
+Sử dụng CURSOR:
+
+Thời gian xử lý thường chậm hơn, thể hiện qua CPU time và Elapsed time cao.
+Dữ liệu được xử lý theo từng dòng (row-by-row), không tận dụng được khả năng xử lý tập hợp của hệ quản trị.
+Mỗi lần lặp, hệ thống phải thực thi riêng lẻ các câu lệnh, dẫn đến phát sinh chi phí xử lý lặp lại.
+Gây ra hiện tượng chuyển đổi ngữ cảnh liên tục giữa các thao tác, làm giảm hiệu năng tổng thể.
+Sử dụng Set-based (không dùng CURSOR):
+
+Thời gian xử lý rất nhanh, gần như không đáng kể với tập dữ liệu vừa và lớn.
+Dữ liệu được xử lý theo dạng tập hợp (set), đúng với cách tối ưu của SQL Server.
+Hệ thống chỉ cần biên dịch và tối ưu câu lệnh một lần, sau đó thực thi đồng loạt.
+Hiệu năng vượt trội, có thể nhanh hơn nhiều lần so với CURSOR khi xử lý dữ liệu lớn.
+Kết luận:
+
+Nên ưu tiên sử dụng phương pháp Set-based trong hầu hết các trường hợp.
+CURSOR chỉ nên dùng khi bài toán yêu cầu xử lý tuần tự từng bản ghi mà không thể giải quyết bằng truy vấn tập hợp.
+
+
+YÊU CẦU 2: XÂY DỰNG BÀI TOÁN MÀ CHỈ CURSOR MỚI GIẢI QUYẾT ĐƯỢC
+
+Ý tưởng (Scenario): "Tự động phân tách lịch sử hóa đơn theo Tháng - Năm"
+Tình huống:
+Bảng HoaDon của nhà hàng sau nhiều năm hoạt động đã tích lũy khối lượng dữ liệu khổng lồ, làm chậm tốc độ xuất hóa đơn và báo cáo cuối ngày. Giám đốc yêu cầu: "Hãy dọn dẹp bảng chính. Cứ mỗi Tháng/Năm, hãy tự động tạo một bảng lưu trữ riêng (ví dụ: LichSuHD_2023_12) để cất dữ liệu cũ vào đó."
+
+Tại sao Set-based (SQL thường) bó tay?
+SQL Server yêu cầu tên bảng trong câu lệnh INSERT INTO hoặc SELECT INTO phải là một hằng số cố định. Bạn không thể viết một lệnh SQL thuần túy nào mà có thể tự động "đẻ" ra tên bảng mới dựa trên dữ liệu ngày tháng của từng tờ hóa đơn. Đây là "đất diễn" độc quyền của CURSOR kết hợp với Dynamic SQL.
+
+Phân tích logic hệ thống CURSOR "Lưu trữ dữ liệu theo Tháng - Năm"
+Bước 1. Xác định danh sách thời gian: Hệ thống quét bảng HoaDon để lấy ra tất cả các cặp (Tháng, Năm) duy nhất đã phát sinh giao dịch.
+
+Bước 2. Khởi tạo cơ chế duyệt: Sử dụng CURSOR để "cầm" từng cặp (Tháng, Năm) này đi xử lý tuần tự.
+
+Bước 3. Xây dựng tên bảng động: Với mỗi mốc, hệ thống tự ghép chuỗi để tạo tên bảng lưu trữ tương ứng (Ví dụ: LichSuHD_2024_05).
+
+Bước 4. Kiểm tra hạ tầng: Nếu bảng lưu trữ của tháng đó chưa tồn tại, hệ thống sẽ tự động thực hiện lệnh CREATE TABLE.
+
+Bước 5. Di trú dữ liệu: * Copy toàn bộ hóa đơn của tháng/năm đó sang bảng lưu trữ tương ứng.
+
+Xóa dữ liệu cũ tại bảng HoaDon gốc để làm nhẹ hệ thống.
+
+Bước 6. Lặp lại: Tiếp tục với các mốc thời gian còn lại cho đến khi sạch bảng gốc.
+
+Bước 7. Kết thúc: Hoàn tất việc phân tách dữ liệu vào các "kho" riêng biệt.
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/2a446c0a-c100-4d61-abd4-c32a90987188" />
+Dùng cursor đóng gói dữ liệu (Archive) động theo từng Năm và Tháng
+
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/3a31f4b8-6b30-49fa-8455-8937da9c1c0c" />
+Kiểm tra kết quả bảng sau khi xử lí
 
 
 
